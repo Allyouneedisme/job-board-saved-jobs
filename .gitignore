@@ -1,0 +1,4 @@
+node_modules/
+saved-jobs.json
+.env
+.DS_Store

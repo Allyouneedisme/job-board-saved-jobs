@@ -1,0 +1,329 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CareerBoard | Find Your Next Opportunity</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6fa;
+      color: #182235;
+      line-height: 1.5;
+    }
+
+    header {
+      background: #14233f;
+      color: white;
+      padding: 22px 7%;
+    }
+
+    .header-content {
+      max-width: 1150px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand {
+      font-size: 23px;
+      font-weight: bold;
+      letter-spacing: 0.3px;
+    }
+
+    .brand span {
+      color: #79b8ff;
+    }
+
+    .header-note {
+      color: #d2dced;
+      font-size: 13px;
+    }
+
+    main {
+      max-width: 1150px;
+      margin: 38px auto;
+      padding: 0 22px;
+    }
+
+    .welcome {
+      margin-bottom: 25px;
+    }
+
+    .welcome h1 {
+      font-size: 30px;
+      margin-bottom: 7px;
+    }
+
+    .welcome p {
+      color: #667085;
+    }
+
+    .search-area {
+      background: white;
+      padding: 17px;
+      border: 1px solid #e6eaf0;
+      border-radius: 12px;
+      margin-bottom: 30px;
+    }
+
+    .search-area input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid #d7deea;
+      border-radius: 8px;
+      font-size: 15px;
+      outline: none;
+    }
+
+    .search-area input:focus {
+      border-color: #377bd6;
+      box-shadow: 0 0 0 3px #377bd61c;
+    }
+
+    .section-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      gap: 12px;
+    }
+
+    .section-heading h2 {
+      font-size: 21px;
+    }
+
+    .count {
+      background: #e8effa;
+      color: #285b9c;
+      padding: 5px 11px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .job-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .job-card {
+      background: white;
+      border: 1px solid #e5eaf1;
+      border-radius: 12px;
+      padding: 21px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .job-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 22px #1b2d4910;
+    }
+
+    .job-card h3 {
+      font-size: 17px;
+      margin-bottom: 5px;
+    }
+
+    .company {
+      color: #667085;
+      font-size: 14px;
+      margin-bottom: 17px;
+    }
+
+    .job-details {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .job-details span {
+      background: #f1f4f8;
+      color: #475467;
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+    }
+
+    .job-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .stipend {
+      font-weight: bold;
+      color: #1d3558;
+      font-size: 15px;
+    }
+
+    button {
+      border: none;
+      border-radius: 7px;
+      padding: 10px 15px;
+      font-size: 13px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .save-btn {
+      background: #245da8;
+      color: white;
+    }
+
+    .save-btn:hover {
+      background: #17477f;
+    }
+
+    .save-btn:disabled {
+      background: #dce6f3;
+      color: #52677f;
+      cursor: default;
+    }
+
+    .remove-btn {
+      background: #fff0f0;
+      color: #c03939;
+    }
+
+    .remove-btn:hover {
+      background: #ffdddd;
+    }
+
+    .saved-section {
+      margin-top: 42px;
+    }
+
+    .saved-section .section-heading {
+      border-bottom: 1px solid #e1e6ee;
+      padding-bottom: 14px;
+    }
+
+    .empty-state {
+      background: white;
+      border: 1px dashed #cbd5e1;
+      border-radius: 10px;
+      padding: 28px;
+      color: #667085;
+      text-align: center;
+      grid-column: 1 / -1;
+    }
+
+    #message {
+      display: none;
+      margin-bottom: 18px;
+      padding: 12px 15px;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    #message.success {
+      display: block;
+      background: #e8f7ee;
+      color: #176b3a;
+    }
+
+    #message.error {
+      display: block;
+      background: #fff0f0;
+      color: #b42318;
+    }
+
+    footer {
+      text-align: center;
+      padding: 28px 15px;
+      margin-top: 50px;
+      color: #8490a2;
+      font-size: 12px;
+    }
+
+    @media (max-width: 700px) {
+      .job-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .welcome h1 {
+        font-size: 25px;
+      }
+
+      .header-content {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      main {
+        margin-top: 27px;
+      }
+    }
+  </style>
+
+  <script src="/app.js" defer></script>
+</head>
+
+<body>
+  <header>
+    <div class="header-content">
+      <div class="brand">Career<span>Board.</span></div>
+      <div class="header-note">Discover opportunities. Build your future.</div>
+    </div>
+  </header>
+
+  <main>
+    <section class="welcome">
+      <h1>Find your next opportunity</h1>
+      <p>Explore internships and save the ones that interest you.</p>
+    </section>
+
+    <section class="search-area">
+      <input
+        type="search"
+        id="searchInput"
+        placeholder="Search by job title, company or location..."
+        aria-label="Search jobs"
+      >
+    </section>
+
+    <div id="message" role="status" aria-live="polite"></div>
+
+    <section>
+      <div class="section-heading">
+        <h2>Explore Jobs</h2>
+        <span class="count" id="jobsCount">Loading...</span>
+      </div>
+
+      <div class="job-grid" id="jobsList">
+        <div class="empty-state">Loading available jobs...</div>
+      </div>
+    </section>
+
+    <section class="saved-section">
+      <div class="section-heading">
+        <h2>Saved Jobs</h2>
+        <span class="count" id="savedCount">0 saved</span>
+      </div>
+
+      <div class="job-grid" id="savedJobsList">
+        <div class="empty-state">Loading saved jobs...</div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    CareerBoard | A simple job discovery application
+  </footer>
+</body>
+</html>
